@@ -1,0 +1,14 @@
+streamlit==1.41.1
+haystack-ai==2.9.0
+weaviate-haystack
+mistral-haystack
+lmnt
+sentence-transformers>=3.0.0
+python-dotenv
+datasets
+
+# For document processing
+pypdf
+nltk
+markdown-it-py 
+mdit_plain
