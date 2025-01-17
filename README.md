@@ -55,7 +55,7 @@ There are default pipelines both in `start_document_store()` and `start_haystack
     * [Creating Custom Components](https://docs.haystack.deepset.ai/docs/custom-components)
 * [Tutorials](https://haystack.deepset.ai/tutorials)
 * [Integrations](https://haystack.deepset.ai/integrations)
-    * [Mistra](https://haystack.deepset.ai/integrations/mistral)
+    * [Mistral](https://haystack.deepset.ai/integrations/mistral)
     * [Weaviate](https://haystack.deepset.ai/integrations/weaviate-document-store)
 
 ## Pushing to Hugging Face Spaces 🤗
