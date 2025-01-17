@@ -6,12 +6,13 @@ from haystack_integrations.components.retrievers.weaviate import WeaviateEmbeddi
 from weaviate.embedded import EmbeddedOptions
 from datasets import load_dataset
 from haystack import Document, Pipeline
-from haystack.components.embedders import SentenceTransformersDocumentEmbedder, SentenceTransformersTextEmbedder, OpenAIDocumentEmbedder, OpenAITextEmbedder
+from haystack.components.embedders import SentenceTransformersDocumentEmbedder, SentenceTransformersTextEmbedder
 from haystack.components.retrievers.in_memory import InMemoryEmbeddingRetriever
 from haystack.components.builders import ChatPromptBuilder
 from haystack.dataclasses import ChatMessage
-from haystack.components.generators.chat import OpenAIChatGenerator
 from haystack_integrations.components.generators.mistral import MistralChatGenerator
+from haystack_integrations.components.embedders.mistral.document_embedder import MistralDocumentEmbedder
+from haystack_integrations.components.embedders.mistral.text_embedder import MistralTextEmbedder
 from haystack.components.preprocessors import DocumentSplitter
 from haystack.components.converters import TextFileToDocument, PyPDFToDocument, MarkdownToDocument
 from haystack.components.routers import FileTypeRouter
@@ -52,8 +53,8 @@ def start_document_store():
     pdf_converter = PyPDFToDocument() # requires 'pip install pypdf'
     markdown_converter = MarkdownToDocument()
     document_splitter = DocumentSplitter(split_by="word", split_length=150, split_overlap=10) # requires 'pip install nltk'
-    # document_embedder = SentenceTransformersDocumentEmbedder(model="sentence-transformers/static-retrieval-mrl-en-v1")
-    document_embedder = OpenAIDocumentEmbedder(model="text-embedding-ada-002", api_key=Secret.from_env_var("OPENAI_API_KEY"))
+    # document_embedder = SentenceTransformersDocumentEmbedder(model="sentence-transformers/all-MiniLM-L6-v2")
+    document_embedder = MistralDocumentEmbedder(model="mistral-embed", api_key=Secret.from_env_var("MISTRAL_API_KEY"))
     document_joiner = DocumentJoiner()
     document_writer = DocumentWriter(document_store=document_store)
 
@@ -99,14 +100,12 @@ def start_haystack_pipeline(_document_store):
         )
     ]
 
-    # text_embedder = SentenceTransformersTextEmbedder(model="sentence-transformers/static-retrieval-mrl-en-v1")
-    text_embedder = OpenAITextEmbedder(model="text-embedding-ada-002", api_key=Secret.from_env_var("OPENAI_API_KEY"))
+    # text_embedder = SentenceTransformersTextEmbedder(model="sentence-transformers/all-MiniLM-L6-v2")
+    text_embedder = MistralTextEmbedder(model="mistral-embed", api_key=Secret.from_env_var("MISTRAL_API_KEY"))
     retriever = InMemoryEmbeddingRetriever(_document_store)
     # retriever = WeaviateEmbeddingRetriever(document_store=_document_store)
     prompt_builder = ChatPromptBuilder(template=template)
-    chat_generator = OpenAIChatGenerator(model="gpt-4o-mini", api_key=Secret.from_env_var("OPENAI_API_KEY"))
-    ## ℹ️ Alternatively, use Mistral models
-    # chat_generator = MistralChatGenerator(model="mistral-large-latest", api_key=Secret.from_env_var("MISTRAL_API_KEY")) 
+    chat_generator = MistralChatGenerator(model="mistral-large-latest", api_key=Secret.from_env_var("MISTRAL_API_KEY")) 
     
     basic_rag_pipeline = Pipeline()
     

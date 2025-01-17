@@ -23,10 +23,8 @@ To run the bare application:
 2. Include all environment variable in a `.env` file
   Example `.env`
   ```
-  OPENAI_API_KEY="YOUR_KEY" # it uses OpenAI models by default, you only need this API key if you don't make any changes
   WEAVIATE_API_KEY="YOUR_KEY"
-  MISTRAL_API_KEY="YOUR_KEY"
-  LMNT_API_KEY="YOUR_KEY"
+  MISTRAL_API_KEY="YOUR_KEY" # this demo uses Mistral models by default
   ```
 3. Decide on the files and the method to populate your database (Check out instructions in `haystack.py`)
 4. Run the streamlit app: `streamlit run app.py`
@@ -36,7 +34,7 @@ This will start up the app on `localhost:8501` where you will find a simple sear
 ## How to use this template
 1. Create a new repository from this template or simply open it in a codespace to start playing around 💙
 2. Make sure your `requirements.txt` file includes the Haystack (`haystack-ai`) and Streamlit versions you would like to use.
-3. Change the code in `utils/haystack.py` if you would like a different pipeline.
+3. Change the code in `utils/haystack.py` if you would like a different pipeline. 
 4. Create a `.env` file with all of your configuration settings.
 5. Make any UI edits if you'd like to.
 6. Run the app as show in [installation and running](#installation-and-running)
@@ -49,7 +47,16 @@ This will start up the app on `localhost:8501` where you will find a simple sear
 - `./files`: You can use this folder to store files to be indexed.
 
 ### What to edit?
-There are default pipelines both in `start_document_store()` and `start_haystack_pipeline()`. Change the pipelines to use different document stores, embedding and generative models or update the pipelines as you need.
+There are default pipelines both in `start_document_store()` and `start_haystack_pipeline()`. Change the pipelines to use different document stores, embedding and generative models or update the pipelines as you need. Check out [📚 Useful Resources](#-useful-resources) section for details.
+
+### 📚 Useful Resources
+* [Get Started](https://haystack.deepset.ai/overview/quick-start)
+* [Docs](https://docs.haystack.deepset.ai/docs/intro)
+    * [Creating Custom Components](https://docs.haystack.deepset.ai/docs/custom-components)
+* [Tutorials](https://haystack.deepset.ai/tutorials)
+* [Integrations](https://haystack.deepset.ai/integrations)
+    * [Mistra](https://haystack.deepset.ai/integrations/mistral)
+    * [Weaviate](https://haystack.deepset.ai/integrations/weaviate-document-store)
 
 ## Pushing to Hugging Face Spaces 🤗
 
